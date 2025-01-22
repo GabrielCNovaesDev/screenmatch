@@ -1,5 +1,5 @@
 ### IntelliJ IDEA ###
-out/
+../out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 
@@ -27,3 +27,6 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+# Arquivo de configuração contendo a API key
+config/config.properties
