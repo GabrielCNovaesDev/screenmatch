@@ -2,12 +2,14 @@ package br.com.gabrielcostanovaes.screenmatch.principal;
 
 import br.com.gabrielcostanovaes.screenmatch.formatacao.FormatacaoJSON;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Scanner;
+import java.util.Properties;
 
 
 public class PrincipalComBusca {
@@ -15,12 +17,17 @@ public class PrincipalComBusca {
     public static void main(String[] args) throws IOException, InterruptedException {
         Scanner scanner = new Scanner(System.in);
         FormatacaoJSON format = new FormatacaoJSON();
+        Properties properties = new Properties();
+        properties.load(new FileInputStream("config/config.properties"));
+
+        String apiKey = properties.getProperty("tmdb_api_key");
+        System.out.println("Sua API Key é: " + apiKey);
 
         System.out.println("Digite o filme desejada");
         var busca = scanner.nextLine();
         busca = format.formataQuery(busca);
 
-        String infoFilme = "https://api.themoviedb.org/3/search/movie?api_key=21956c903f3bcd7862dccc3cca3585a2&query="+busca;
+        String infoFilme = "https://api.themoviedb.org/3/search/movie?api_key="+apiKey+"&query="+busca;
 
 
         HttpClient client = HttpClient.newHttpClient();
