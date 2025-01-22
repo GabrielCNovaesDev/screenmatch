@@ -20,7 +20,7 @@ public class PrincipalComBusca {
         var busca = scanner.nextLine();
         busca = format.formataQuery(busca);
 
-        String infoFilme = "https://api.themoviedb.org/3/search/movie?api_key=21956c903f3bcd7862dccc3cca3585a2&query="+busca;
+        String infoFilme = "https://api.themoviedb.org/3/search/movie?api_key=&query="+busca;
 
 
         HttpClient client = HttpClient.newHttpClient();
