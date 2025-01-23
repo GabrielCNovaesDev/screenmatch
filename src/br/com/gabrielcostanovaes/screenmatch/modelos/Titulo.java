@@ -1,5 +1,6 @@
 package br.com.gabrielcostanovaes.screenmatch.modelos;
 
+import br.com.gabrielcostanovaes.screenmatch.formatacao.TituloOmdb;
 import com.google.gson.annotations.SerializedName;
 
 public class Titulo implements Comparable<Titulo> {
@@ -11,10 +12,17 @@ public class Titulo implements Comparable<Titulo> {
     private double somaDasAvaliacoes;
     private int totalDeAvaliacoes;
     private int duracaoEmMinutos;
+    private double mediaDasAvaliacoes = somaDasAvaliacoes / totalDeAvaliacoes;
 
     public Titulo(String nome, String dataDeLancamento) {
         this.nome = nome;
         this.dataDeLancamento = dataDeLancamento;
+    }
+
+    public Titulo(TituloOmdb meuTituloOMDB) {
+        this.nome = meuTituloOMDB.original_title();
+        this.dataDeLancamento = meuTituloOMDB.release_date();
+        this.mediaDasAvaliacoes = Double.parseDouble(meuTituloOMDB.vote_average());
     }
 
     public String getNome() {
@@ -64,7 +72,7 @@ public class Titulo implements Comparable<Titulo> {
     }
 
     public double pegaMedia(){
-        return somaDasAvaliacoes / totalDeAvaliacoes;
+        return mediaDasAvaliacoes;
     }
 
     @Override
@@ -74,6 +82,7 @@ public class Titulo implements Comparable<Titulo> {
 
     @Override
     public String toString() {
-        return "Título original: " + nome +" / "+ "Data de lançamento: "+ dataDeLancamento;
+        return "Título original: " + nome +" / "+ "Data de lançamento: "+ dataDeLancamento + " / "+" Média de avaliações: "
+                + mediaDasAvaliacoes;
     }
 }

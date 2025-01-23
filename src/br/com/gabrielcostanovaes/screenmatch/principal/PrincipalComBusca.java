@@ -49,12 +49,13 @@ public class PrincipalComBusca {
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
                 .create();
 
-        //Titulo meuTitulo = gson.fromJson(firstResult, Titulo.class);
+        //
         TituloOmdb meuTituloOMDB = gson.fromJson(firstResult, TituloOmdb.class);
+        Titulo meuTitulo = new Titulo(meuTituloOMDB);
 
         if(meuTituloOMDB != null) {
             // String anoFormatado = format.formataQuery(meuTitulo.getDataDeLancamento(),"-","/");
-            System.out.println(meuTituloOMDB);
+            System.out.println(meuTitulo);
         }else {
             System.out.println("Nenhum titulo encontrado");
         }
