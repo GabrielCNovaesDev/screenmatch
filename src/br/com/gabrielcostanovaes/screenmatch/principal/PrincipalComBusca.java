@@ -1,6 +1,11 @@
 package br.com.gabrielcostanovaes.screenmatch.principal;
 
 import br.com.gabrielcostanovaes.screenmatch.formatacao.FormatacaoJSON;
+import br.com.gabrielcostanovaes.screenmatch.formatacao.TituloOmdb;
+import br.com.gabrielcostanovaes.screenmatch.modelos.Titulo;
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -20,12 +25,12 @@ public class PrincipalComBusca {
         Properties properties = new Properties();
         properties.load(new FileInputStream("config/config.properties"));
 
-        String apiKey = properties.getProperty("tmdb_api_key");
-        System.out.println("Sua API Key é: " + apiKey);
 
-        System.out.println("Digite o filme desejada");
+        String apiKey = properties.getProperty("tmdb_api_key");
+
+        System.out.println("Digite o filme desejado");
         var busca = scanner.nextLine();
-        busca = format.formataQuery(busca);
+        busca = format.formataQuery(busca," ","+");
 
         String infoFilme = "https://api.themoviedb.org/3/search/movie?api_key="+apiKey+"&query="+busca;
 
@@ -40,7 +45,20 @@ public class PrincipalComBusca {
         String responseBody = response.body();
         String firstResult = format.extractFirstResult(responseBody);
 
-        System.out.println(firstResult);
+        Gson gson = new GsonBuilder()
+                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                .create();
+
+        //Titulo meuTitulo = gson.fromJson(firstResult, Titulo.class);
+        TituloOmdb meuTituloOMDB = gson.fromJson(firstResult, TituloOmdb.class);
+
+        if(meuTituloOMDB != null) {
+            // String anoFormatado = format.formataQuery(meuTitulo.getDataDeLancamento(),"-","/");
+            System.out.println(meuTituloOMDB);
+        }else {
+            System.out.println("Nenhum titulo encontrado");
+        }
+
     }
 
 }

@@ -1,24 +1,28 @@
 package br.com.gabrielcostanovaes.screenmatch.modelos;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Titulo implements Comparable<Titulo> {
+    @SerializedName("original_title")
     private String nome;
-    private int anoDeLancamento;
+    @SerializedName("release_date")
+    private String dataDeLancamento;
     private boolean incluidoNoPlano;
     private double somaDasAvaliacoes;
     private int totalDeAvaliacoes;
     private int duracaoEmMinutos;
 
-    public Titulo(String nome, int anoDeLancamento) {
+    public Titulo(String nome, String dataDeLancamento) {
         this.nome = nome;
-        this.anoDeLancamento = anoDeLancamento;
+        this.dataDeLancamento = dataDeLancamento;
     }
 
     public String getNome() {
         return nome;
     }
 
-    public int getAnoDeLancamento() {
-        return anoDeLancamento;
+    public String getDataDeLancamento() {
+        return dataDeLancamento;
     }
 
     public boolean isIncluidoNoPlano() {
@@ -37,8 +41,8 @@ public class Titulo implements Comparable<Titulo> {
         this.nome = nome;
     }
 
-    public void setAnoDeLancamento(int anoDeLancamento) {
-        this.anoDeLancamento = anoDeLancamento;
+    public void setDataDeLancamento(String dataDeLancamento) {
+        this.dataDeLancamento = dataDeLancamento;
     }
 
     public void setIncluidoNoPlano(boolean incluidoNoPlano) {
@@ -51,7 +55,7 @@ public class Titulo implements Comparable<Titulo> {
 
     public void exibeFichaTecnica(){
         System.out.println("Nome do filme: " + nome);
-        System.out.println("Ano de lançamento: " + anoDeLancamento);
+        System.out.println("Ano de lançamento: " + dataDeLancamento);
     }
 
     public void avalia(double nota){
@@ -66,5 +70,10 @@ public class Titulo implements Comparable<Titulo> {
     @Override
     public int compareTo(Titulo outroTitulo) {
         return this.getNome().compareTo(outroTitulo.getNome());
+    }
+
+    @Override
+    public String toString() {
+        return "Título original: " + nome +" / "+ "Data de lançamento: "+ dataDeLancamento;
     }
 }
